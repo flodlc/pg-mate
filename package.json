@@ -1,0 +1,29 @@
+{
+  "name": "pg-migration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/flodlc/pg-migration.git",
+  "author": "flodlc <f.delacomble@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsup src/index.ts --dts",
+    "dev": "tsup src/index.ts --watch .",
+    "start": "node dist/pg-mate.js",
+    "pg-migrate-esm": "ts-node --esm  src/pg-mate.ts",
+    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' src/pg-mate.ts"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.1",
+    "pg": ">=7.18.2"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "tsup": "^6.6.3",
+    "@types/pg": "^8.6.6",
+    "pg": "^8.9.0",
+    "typescript": "^4.9.5"
+  }
+}
