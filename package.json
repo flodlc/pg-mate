@@ -1,6 +1,6 @@
 {
   "name": "@flodlc/pg-mate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": "https://github.com/flodlc/pg-migration.git",
   "author": "flodlc <f.delacomble@gmail.com>",
   "license": "MIT",
