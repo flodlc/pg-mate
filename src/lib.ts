@@ -108,16 +108,30 @@ export const initCli = async (config: PgMateConfig) => {
     | "rollback"
     | "create"
     | "refreshIndex";
+
+  const mate = await init(config);
+
   (async () => {
-    const internalClient = await getInternalClient(config.connexionUrl);
-    await pgMate[command]({
-      internalClient,
-      client: (await config.getClient?.()) ?? internalClient,
-      migrationDir: config.migrationDir ?? "migrations",
-      migrationImports: config.migrationImports,
-    });
+    await mate[command]();
     process.exit();
   })();
+};
+
+export const init = async (config: PgMateConfig) => {
+  const internalClient = await getInternalClient(config.connexionUrl);
+  const params = {
+    internalClient,
+    client: (await config.getClient?.()) ?? internalClient,
+    migrationDir: config.migrationDir ?? "migrations",
+    migrationImports: config.migrationImports,
+  };
+
+  return {
+    migrate: () => migrate(params),
+    rollback: () => rollback(params),
+    create: () => create(params),
+    refreshIndex: () => refreshIndex(params),
+  };
 };
 
 const getSortedMigrationFiles = async ({
@@ -152,9 +166,6 @@ const getMigrations = async ({
 };
 
 export const pgMate = {
-  migrate,
-  rollback,
   initCli,
-  create,
-  refreshIndex,
+  init,
 };
