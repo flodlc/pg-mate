@@ -1,0 +1,29 @@
+{
+  "name": "playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsup src/index.ts --dts",
+    "dev": "tsup src/index.ts --watch .",
+    "start": "node dist/pg-mate.js",
+    "pg-migrate-esm": "ts-node --esm pg-mate.ts",
+    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' pg-mate.ts"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.1"
+  },
+  "dependencies": {
+    "@flodlc/pg-mate": "^1.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5"
+  },
+  "keywords": [
+    "postgresql",
+    "postgres",
+    "migrations",
+    "pg"
+  ]
+}

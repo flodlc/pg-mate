@@ -1,29 +1,41 @@
 {
-  "name": "pg-migration",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@flodlc/pg-mate",
+  "version": "1.0.2",
   "repository": "https://github.com/flodlc/pg-migration.git",
   "author": "flodlc <f.delacomble@gmail.com>",
   "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
   "type": "commonjs",
+  "private": false,
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "dev": "tsup src/index.ts --watch .",
     "start": "node dist/pg-mate.js",
-    "pg-migrate-esm": "ts-node --esm  src/pg-mate.ts",
-    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' src/pg-mate.ts"
+    "pg-migrate-esm": "ts-node --esm  playground/pg-mate.ts",
+    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' playground/pg-mate.ts"
   },
   "peerDependencies": {
-    "typescript": ">=4.1",
-    "pg": ">=7.18.2"
+    "pg": ">=7.18.2",
+    "typescript": ">=4.1"
   },
   "dependencies": {
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "tsup": "^6.6.3",
     "@types/pg": "^8.6.6",
     "pg": "^8.9.0",
+    "tsup": "^6.6.3",
     "typescript": "^4.9.5"
-  }
+  },
+  "keywords": [
+    "postgresql",
+    "postgres",
+    "migrations",
+    "pg"
+  ]
 }
