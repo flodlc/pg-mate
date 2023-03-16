@@ -1,12 +1,12 @@
 {
   "name": "playground",
-  "type": "module",
+  "type": "commonjs",
   "private": true,
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "dev": "tsup src/index.ts --watch .",
     "start": "node dist/pg-mate.js",
-    "pg-migrate-esm": "NODE_ENV=prod ts-node --esm pg-mate.ts",
+    "pg-migrate-esm": "NODE_ENV=prod ts-node -T --esm pg-mate.ts",
     "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' pg-mate.ts"
   },
   "peerDependencies": {

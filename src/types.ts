@@ -12,6 +12,8 @@ export type PgMateConfig = {
   getClient?: () => Promise<any>;
   migrationDir?: string;
   migrationImports: MigrationFiles;
+  esm?: boolean;
+  ts?: boolean;
 };
 
 export type CommandArgs = {
@@ -19,4 +21,6 @@ export type CommandArgs = {
   internalClient: Client;
   migrationDir: string;
   migrationImports: MigrationFiles;
+  esm: boolean;
+  ts: boolean;
 };

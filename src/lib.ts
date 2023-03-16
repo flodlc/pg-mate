@@ -75,19 +75,27 @@ export const rollback = async ({
   }
 };
 
-const create = async ({ migrationDir }: CommandArgs) => {
+const create = async ({ migrationDir, esm, ts }: CommandArgs) => {
   const name = `migration_${Date.now()}`;
   console.log(`create migration ${name} in ${migrationDir}`);
   await fs.mkdir(migrationDir, { recursive: true });
-  await fs.writeFile(`${migrationDir}/${name}.ts`, template);
-  await refreshIndex({ migrationDir });
+  await fs.writeFile(`${migrationDir}/${name}.${ts ? "ts" : "js"}`, template);
+  await refreshIndex({ migrationDir, esm, ts });
 };
 
-const refreshIndex = async ({ migrationDir }: { migrationDir: string }) => {
+const refreshIndex = async ({
+  migrationDir,
+  esm,
+  ts,
+}: {
+  migrationDir: string;
+  esm: boolean;
+  ts: boolean;
+}) => {
   const sortedFiles = await getSortedMigrationFiles({ migrationDir });
   const importContent = sortedFiles.reduce(
     (acc, name) => `${acc}
-import * as ${name} from "./${name}";
+import * as ${name} from "./${name}${esm ? ".js" : ""}";
 `,
     ""
   );
@@ -102,7 +110,7 @@ export const migrations = {
 ${exportList.slice(2)}
 };
   `;
-  await fs.writeFile(`${migrationDir}/index.ts`, content);
+  await fs.writeFile(`${migrationDir}/index.${ts ? "ts" : "js"}`, content);
 };
 
 export const initCli = async (config: PgMateConfig) => {
@@ -136,6 +144,8 @@ export const init = async (config: PgMateConfig) => {
     client: (await config.getClient?.()) ?? internalClient,
     migrationDir: config.migrationDir ?? "migrations",
     migrationImports: config.migrationImports,
+    esm: config.esm ?? false,
+    ts: config.ts ?? false,
   };
 
   return {
