@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --dts",
-    "dev": "tsup src/index.ts --watch ."
+    "dev": "tsup src/index.ts --dts --watch ."
   },
   "peerDependencies": {
     "pg": ">=7.18.2",

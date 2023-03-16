@@ -7,6 +7,9 @@ import {
   template,
 } from "./utils";
 
+const greenText = "\x1b[32m%s\x1b[0m";
+const redText = "\x1b[31m%s\x1b[0m";
+
 export const migrate = async ({
   client,
   internalClient,
@@ -22,6 +25,7 @@ export const migrate = async ({
   const migrationEntries = Object.entries(migrations);
   let currentMigrationName = "";
   let done = 0;
+
   try {
     for (const [name, { up }] of migrationEntries) {
       currentMigrationName = name;
@@ -33,9 +37,10 @@ export const migrate = async ({
       );
       done++;
     }
-    console.log(`success: ${done} migrations executed`);
+    console.log(greenText, `success: ${done} migrations executed`);
   } catch (e) {
-    console.log(`error: ${currentMigrationName} failed`);
+    console.log(greenText, `${done} migrations executed`);
+    console.log(redText, `error: ${currentMigrationName} failed`);
   }
 };
 
@@ -51,27 +56,34 @@ export const rollback = async ({
   });
   await ensureMetaTableReady({ client: internalClient });
   const rows = await findRows({ client: internalClient });
-  for (const { name } of rows) {
-    await migrations[name].down(client);
-    await internalClient.query(`DELETE FROM "pg_mate" WHERE name = '${name}'`);
+
+  let currentMigrationName = "";
+  let done = 0;
+  try {
+    for (const { name } of rows) {
+      currentMigrationName = name;
+      await migrations[name].down(client);
+      await internalClient.query(
+        `DELETE FROM "pg_mate" WHERE name = '${name}'`
+      );
+      done++;
+    }
+    console.log(greenText, `success: ${done} migrations rollback executed`);
+  } catch (e) {
+    console.log(greenText, `${done} migrations rollback executed`);
+    console.log(redText, `error: ${currentMigrationName} rollback failed`);
   }
 };
 
-const create = async ({ migrationDir, migrationImports }: CommandArgs) => {
+const create = async ({ migrationDir }: CommandArgs) => {
   const name = `migration_${Date.now()}`;
   console.log(`create migration ${name} in ${migrationDir}`);
   await fs.mkdir(migrationDir, { recursive: true });
   await fs.writeFile(`${migrationDir}/${name}.ts`, template);
-  await refreshIndex({ migrationDir, migrationImports });
+  await refreshIndex({ migrationDir });
 };
 
-const refreshIndex = async ({
-  migrationDir,
-  migrationImports,
-}: {
-  migrationDir: string;
-  migrationImports: MigrationFiles;
-}) => {
+const refreshIndex = async ({ migrationDir }: { migrationDir: string }) => {
   const sortedFiles = await getSortedMigrationFiles({ migrationDir });
   const importContent = sortedFiles.reduce(
     (acc, name) => `${acc}
@@ -95,7 +107,7 @@ ${exportList.slice(2)}
 
 export const initCli = async (config: PgMateConfig) => {
   const commands = process.argv.filter((item) =>
-    ["--migrate", "--rollback", "--create", "--refreshIndex"].includes(item)
+    ["migrate", "rollback", "create", "refreshIndex"].includes(item)
   );
 
   if (commands.length !== 1) {
