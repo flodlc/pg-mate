@@ -9,7 +9,7 @@
 - Fully written in TypeScript
 <hr>
 
-## Installation
+## Getting Started
 
 ```sh
 npm install pg-mate
@@ -17,10 +17,60 @@ npm install pg-mate
 yarn add pg-mate
 ```
 
-Then
+Next, create a `pg-mate.(js|ts)` file at the root of your project as follows::
 
-```sh
-npx pg-mate init
+```typescript
+import { pgMate, PgMateConfig } from "../dist/index";
+import { migrations } from "./migrations/index";
+
+export const config: PgMateConfig = {
+  connexionUrl: "postgresql://postgres:password@localhost:5432/postgres",
+  migrationImports: migrations,
+  migrationDir: "migrations",
+  esm: false,
+  ts: true,
+};
+
+pgMate.initCli(config);
+```
+
+> Note that `pgMate.initCli(config);` enables the use of this file as a CLI
+
+## Config
+
+Here is the Config definition with default values:
+
+```typescript
+type PgMateConfig = {
+  /**
+   * Exemple: "postgresql://postgres:password@localhost:5432/postgres"
+   */
+  connexionUrl: string;
+  /**
+   * Allows injecting a custom db client in migration functions.
+   * Default: native pg driver
+   * Exemple: () => knexClient
+   */
+  getClient?: () => Promise<any>;
+  /**
+   * Default: "migrations"
+   */
+  migrationDir?: string;
+  /**
+   * Must be the migrations import (required)
+   */
+  migrationImports: MigrationFiles;
+  /**
+   * If type: "module" in package.json => true
+   * Default: false
+   */
+  esm?: boolean;
+  /**
+   * Used to use the correction extension in migrations directory.
+   * Default: false
+   */
+  ts?: boolean;
+};
 ```
 
 ## Usage
@@ -91,9 +141,5 @@ node pg-mate.js --refreshIndex
 # or
 ts-node pg-mate.ts --refreshIndex
 ```
-
-### Basic
-
-...
 
 That's it! You can now use pg-mate to manage your Postgresql database migrations.
