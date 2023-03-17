@@ -1,5 +1,5 @@
 {
-  "name": "@flodlc/pg-mate",
+  "name": "pg-mate",
   "version": "1.0.8",
   "repository": "https://github.com/flodlc/pg-mate.git",
   "author": "flodlc <f.delacomble@gmail.com>",
