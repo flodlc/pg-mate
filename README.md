@@ -7,7 +7,24 @@
 - Customizable client injection for migrations (native pg driver, zapatos, or any other client you want)
 - First-class CLI and programmatic usage
 - Fully written in TypeScript
-<hr>
+
+---
+
+Table of Contents:
+
+- [Installation](#installation)
+- [Setup](#setup)
+- [Programmatic Usage](#programmatic-usage)
+- [Using the CLI with ts-node](#using-the-cli-with-ts-node)
+- [Using the CLI with node](#using-the-cli-with-node)
+- [Configuration](#configuration)
+- [Commands](#commands)
+  - [Creating a Migration](#creating-a-migration)
+  - [Running Migrations](#running-migrations)
+  - [Rolling Back Migrations](#rolling-back-migrations)
+  - [Refreshing the Index](#refreshing-the-index)
+
+---
 
 ## Installation
 
