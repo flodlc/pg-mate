@@ -1,4 +1,4 @@
-import { pgMate, PgMateConfig } from "../dist/index";
+import { pgMate, PgMateConfig } from "pg-mate";
 import { migrations } from "./migrations/index";
 
 export const config: PgMateConfig = {

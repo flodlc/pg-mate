@@ -20,7 +20,7 @@ yarn add pg-mate
 Next, create a `pg-mate.(js|ts)` file at the root of your project as follows::
 
 ```typescript
-import { pgMate, PgMateConfig } from "../dist/index";
+import { pgMate, PgMateConfig } from "pg-mate";
 import { migrations } from "./migrations/index";
 
 export const config: PgMateConfig = {
@@ -35,6 +35,19 @@ pgMate.initCli(config);
 ```
 
 > Note that `pgMate.initCli(config);` enables the use of this file as a CLI
+
+### To use pg-mate programmaticaly:
+
+```typescript
+import { pgMate } from "pg-mate";
+import { config } from "./pg-mate";
+
+const pgMateClient = await pgMate.init(config);
+
+(async () => {
+  await pgMateClient.migrate();
+})();
+```
 
 ## Config
 
