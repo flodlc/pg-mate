@@ -3,7 +3,8 @@
     "src",
     "playground/migrations",
     "playground/pg-mate.ts",
-    "runner.mjs"
+    "runner.mjs",
+    "playground/server.ts"
   ],
   "exclude": ["**/node_modules"],
   "compilerOptions": {

@@ -10,7 +10,7 @@ export type MigrationFiles = Record<
 export type PgMateConfig = {
   connexionUrl: string;
   getClient?: () => Promise<any>;
-  migrationDir?: string;
+  migrationDir: string;
   migrationImports: MigrationFiles;
   esm?: boolean;
   ts?: boolean;

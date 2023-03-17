@@ -6,8 +6,9 @@
     "build": "tsup src/index.ts --dts",
     "dev": "tsup src/index.ts --watch .",
     "start": "node dist/pg-mate.js",
-    "pg-migrate-esm": "NODE_ENV=prod ts-node -T --esm pg-mate.ts",
-    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' pg-mate.ts"
+    "pg-migrate-esm": "NODE_ENV=prod ts-node -T --esm migrations/pg-mate.ts",
+    "pg-migrate": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' migrations/pg-mate.ts",
+    "server": "ts-node --compilerOptions '{\"module\": \"CommonJS\"}' server.ts"
   },
   "peerDependencies": {
     "typescript": ">=4.1"

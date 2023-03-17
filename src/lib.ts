@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import fsSync from "fs";
 import { CommandArgs, MigrationFiles, PgMateConfig } from "./types";
 import {
   ensureMetaTableReady,
@@ -17,10 +18,7 @@ export const migrate = async ({
   migrationImports,
 }: CommandArgs) => {
   await ensureMetaTableReady({ client: internalClient });
-  const migrations = await getMigrations({
-    migrationDir: migrationDir ?? "migrations",
-    migrationImports,
-  });
+  const migrations = await getMigrations({ migrationDir, migrationImports });
   const rows = await findRows({ client: internalClient });
   const migrationEntries = Object.entries(migrations);
   let currentMigrationName = "";
@@ -50,10 +48,7 @@ export const rollback = async ({
   migrationDir,
   migrationImports,
 }: CommandArgs) => {
-  const migrations = await getMigrations({
-    migrationDir: migrationDir ?? "migrations",
-    migrationImports,
-  });
+  const migrations = await getMigrations({ migrationDir, migrationImports });
   await ensureMetaTableReady({ client: internalClient });
   const rows = await findRows({ client: internalClient });
 
@@ -92,6 +87,7 @@ const refreshIndex = async ({
   esm: boolean;
   ts: boolean;
 }) => {
+  console.log("refreshIndexrefreshIndexrefreshIndex");
   const sortedFiles = await getSortedMigrationFiles({ migrationDir });
   const importContent = sortedFiles.reduce(
     (acc, name) => `${acc}
@@ -113,28 +109,24 @@ ${exportList.slice(2)}
   await fs.writeFile(`${migrationDir}/index.${ts ? "ts" : "js"}`, content);
 };
 
-export const initCli = async (config: PgMateConfig) => {
-  const commands = process.argv.filter((item) =>
-    ["migrate", "rollback", "create", "refreshIndex"].includes(item)
-  );
-
-  if (commands.length !== 1) {
-    console.log("wrong command");
+export const cli = async (config: PgMateConfig) => {
+  const lastParam = process.argv[process.argv.length - 1];
+  if (
+    !lastParam ||
+    !["migrate", "rollback", "create", "refreshIndex"].includes(lastParam)
+  ) {
     return;
   }
 
-  const command = commands[0].replace("--", "") as
-    | "migrate"
-    | "rollback"
-    | "create"
-    | "refreshIndex";
-
   const mate = await init(config);
+  const command = lastParam as keyof typeof mate;
 
   (async () => {
     await mate[command]();
     process.exit();
   })();
+
+  return mate;
 };
 
 export const init = async (config: PgMateConfig) => {
@@ -142,7 +134,7 @@ export const init = async (config: PgMateConfig) => {
   const params = {
     internalClient,
     client: (await config.getClient?.()) ?? internalClient,
-    migrationDir: config.migrationDir ?? "migrations",
+    migrationDir: config.migrationDir ?? "",
     migrationImports: config.migrationImports,
     esm: config.esm ?? false,
     ts: config.ts ?? false,
@@ -161,8 +153,18 @@ const getSortedMigrationFiles = async ({
 }: {
   migrationDir: string;
 }) => {
+  const migrationDirExists = fsSync.existsSync(migrationDir);
+  if (!migrationDirExists) {
+    console.log(
+      redText,
+      `
+Migration directory "${migrationDir}" does not exist.
+Check the "migrationDir" value in your config
+`
+    );
+  }
   const files = await (await fs.readdir(migrationDir))
-    .filter((file) => !file.includes("index"))
+    .filter((file) => file.startsWith("migration_"))
     .map((file) => file.replace(/(\.ts|\.js)/, ""));
   return files.slice().sort();
 };
@@ -188,6 +190,6 @@ const getMigrations = async ({
 };
 
 export const pgMate = {
-  initCli,
   init,
+  cli,
 };

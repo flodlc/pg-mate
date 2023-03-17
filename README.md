@@ -17,24 +17,39 @@ npm install pg-mate
 yarn add pg-mate
 ```
 
-Next, create a `pg-mate.(js|ts)` file at the root of your project as follows:
+Next, create a migrations directory with the following structure:
+
+```
+migrations
+--- index.ts
+--- pg-mate.ts
+```
+
+migration/index.ts:
 
 ```typescript
-import { pgMate, PgMateConfig } from "pg-mate";
-import { migrations } from "./migrations/index";
+// migrations/index.ts:
+export const migrations = {};
+```
+
+migration/pg-mate.ts:
+
+```typescript
+// migrations/pg-mate.ts:
+import { pgMate, PgMateConfig } from "../../dist/index";
+import { migrations } from "./index";
 
 export const config: PgMateConfig = {
   connexionUrl: "postgresql://postgres:password@localhost:5432/postgres",
   migrationImports: migrations,
-  migrationDir: "migrations",
+  migrationDir: __dirname,
   esm: false,
   ts: true,
 };
-
-pgMate.initCli(config);
+pgMate.cli(config);
 ```
 
-> Note that `pgMate.initCli(config);` enables the use of this file as a CLI
+> Note that `pgMate.cli(config);` enables the use of this file as a CLI
 
 ### To use pg-mate programmaticaly:
 
@@ -90,9 +105,10 @@ type PgMateConfig = {
    */
   getClient?: () => Promise<any>;
   /**
-   * Default: "migrations"
+   * Should not be modified except for very specific reasons.
+   * Default: __dirname
    */
-  migrationDir?: string;
+  migrationDir: string;
   /**
    * Must be the migrations import (required)
    */

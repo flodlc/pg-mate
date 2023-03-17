@@ -1,12 +1,12 @@
-import { pgMate, PgMateConfig } from "pg-mate";
-import { migrations } from "./migrations/index";
+import { pgMate, PgMateConfig } from "../../dist/index";
+import { migrations } from "./index";
 
 export const config: PgMateConfig = {
   connexionUrl: "postgresql://postgres:password@localhost:5432/postgres",
   migrationImports: migrations,
-  migrationDir: "migrations",
+  migrationDir: __dirname,
   esm: false,
   ts: true,
 };
 
-pgMate.initCli(config);
+pgMate.cli(config);
