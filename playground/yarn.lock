@@ -617,10 +617,10 @@ pg-int8@1.0.1:
   resolved "https://registry.yarnpkg.com/pg-int8/-/pg-int8-1.0.1.tgz#943bd463bf5b71b4170115f80f8efc9a0c0eb78c"
   integrity sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==
 
-pg-mate@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/pg-mate/-/pg-mate-1.0.9.tgz#0c99d02634814ea1f38cf2b6ad006fb4deb5f02a"
-  integrity sha512-HnHtlGQ8hc2CQ0lnmMFpVP8Qyn0REODeQJzPfCvjpFTlAuOcmNwb/JlAFICOeLk/iPKVa2PT/0iijBLz2/gTRw==
+pg-mate@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/pg-mate/-/pg-mate-1.0.12.tgz#bab12600e2241f72d218359d850b1a26bd8175b8"
+  integrity sha512-BVdSJrSaAeql9OkRE+Hfk3hTGF64GSUhhIXNAw21MwwhNJDdQ8DwSP81pXCVQ6rfOoeSpMRN3KDl7mYDLoBXqA==
   dependencies:
     ts-node "^10.9.1"
 
