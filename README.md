@@ -17,7 +17,7 @@ npm install pg-mate
 yarn add pg-mate
 ```
 
-Next, create a `pg-mate.(js|ts)` file at the root of your project as follows::
+Next, create a `pg-mate.(js|ts)` file at the root of your project as follows:
 
 ```typescript
 import { pgMate, PgMateConfig } from "pg-mate";
@@ -47,6 +47,30 @@ const pgMateClient = await pgMate.init(config);
 (async () => {
   await pgMateClient.migrate();
 })();
+```
+
+### ts-node CLI
+
+You can use ts-node to exectute directly `pg-mate.ts`.
+Invoque the CLI with this:
+
+```sh
+ts-node pg-mate.js <command>
+```
+
+If your package.json is configured on `commonjs` it should work easily.
+If it's configured on `modules` then you will have to add `--esm`:
+
+```sh
+ts-node --esm pg-mate.js <command>
+```
+
+### node CLI
+
+You can compile the `pg-mate.ts` file as you maybe do with your app. Then you can invoque the CLI like this:
+
+```sh
+node dist/pg-mate.js <command>
 ```
 
 ## Config
