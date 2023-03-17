@@ -93,9 +93,9 @@ type PgMateConfig = {
 ```sh
 pgMateClient.create()
 # or
-node pg-mate.js --create
+node pg-mate.js create
 # or
-ts-node pg-mate.ts --create
+ts-node pg-mate.ts create
 ```
 
 ```typescript
@@ -122,9 +122,9 @@ To run migrations, use the following command:
 ```sh
 pgMateClient.migrate()
 # or
-node pg-mate.js --migrate
+node pg-mate.js migrate
 # or
-ts-node pg-mate.ts --migrate
+ts-node pg-mate.ts migrate
 ```
 
 ### Rollback
@@ -134,9 +134,9 @@ To rollback a migration, use the following command:
 ```sh
 pgMateClient.rollback()
 # or
-node pg-mate.js --rollback
+node pg-mate.js rollback
 # or
-ts-node pg-mate.ts --rollback
+ts-node pg-mate.ts rollback
 ```
 
 ### Refresh Index
@@ -150,9 +150,9 @@ If needed, the refreshIndex command can trigger an update of the index.
 ```sh
 pgMateClient.refreshIndex()
 # or
-node pg-mate.js --refreshIndex
+node pg-mate.js refreshIndex
 # or
-ts-node pg-mate.ts --refreshIndex
+ts-node pg-mate.ts refreshIndex
 ```
 
 That's it! You can now use pg-mate to manage your Postgresql database migrations.
