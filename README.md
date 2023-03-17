@@ -9,7 +9,9 @@
 - Fully written in TypeScript
 <hr>
 
-## Getting Started
+## Installation
+
+To get started, install Pg-mate using npm or yarn:
 
 ```sh
 npm install pg-mate
@@ -17,22 +19,24 @@ npm install pg-mate
 yarn add pg-mate
 ```
 
+## Setup
+
 Next, create a migrations directory with the following structure:
 
 ```
 migrations
---- index.ts
---- pg-mate.ts
+  ├── index.ts
+  └── pg-mate.ts
 ```
 
-migration/index.ts:
+In migrations/index.ts, add the following code:
 
 ```typescript
 // migrations/index.ts:
 export const migrations = {};
 ```
 
-migration/pg-mate.ts:
+In migrations/pg-mate.ts, add the following code:
 
 ```typescript
 // migrations/pg-mate.ts:
@@ -51,46 +55,48 @@ pgMate.cli(config);
 
 > Note that `pgMate.cli(config);` enables the use of this file as a CLI
 
-### To use pg-mate programmaticaly:
+## Programmatic Usage
+
+To use pg-mate programmatically:
 
 ```typescript
 import { pgMate } from "pg-mate";
-import { config } from "./pg-mate";
-
-const pgMateClient = await pgMate.init(config);
+import { config } from "./migrations/pg-mate";
 
 (async () => {
+  const pgMateClient = await pgMate.init(config);
   await pgMateClient.migrate();
 })();
 ```
 
-### ts-node CLI
+## Using the CLI with ts-node
 
-You can use ts-node to exectute directly `pg-mate.ts`.
-Invoque the CLI with this:
+You can use ts-node to execute `pg-mate.ts` directly:
 
 ```sh
 ts-node pg-mate.js <command>
 ```
 
-If your package.json is configured on `commonjs` it should work easily.
-If it's configured on `modules` then you will have to add `--esm`:
+If your `package.json` is configured for `commonjs`, it should work easily.  
+If it's configured for `modules`, you will need to add the `--esm` flag:
 
 ```sh
 ts-node --esm pg-mate.js <command>
 ```
 
-### node CLI
+## Using the CLI with node
 
-You can compile the `pg-mate.ts` file as you maybe do with your app. Then you can invoque the CLI like this:
+You can compile the `pg-mate.ts` file as you would with your app. Then, invoke the CLI as follows:
 
 ```sh
 node dist/pg-mate.js <command>
 ```
 
-## Config
+---
 
-Here is the Config definition with default values:
+## Configuration
+
+Below is the `PgMateConfig` definition with default values:
 
 ```typescript
 type PgMateConfig = {
@@ -126,9 +132,9 @@ type PgMateConfig = {
 };
 ```
 
-## Usage
+## Commands
 
-### Create migration
+### Creating a Migration
 
 ```sh
 pgMateClient.create()
@@ -155,7 +161,7 @@ export const down = async (pg: Client) => {
 };
 ```
 
-### Migrate
+### Running Migrations
 
 To run migrations, use the following command:
 
@@ -167,7 +173,7 @@ node pg-mate.js migrate
 ts-node pg-mate.ts migrate
 ```
 
-### Rollback
+### Rolling Back Migrations
 
 To rollback a migration, use the following command:
 
@@ -179,7 +185,7 @@ node pg-mate.js rollback
 ts-node pg-mate.ts rollback
 ```
 
-### Refresh Index
+### Refreshing the Index
 
 The migrations are imported using the index file in the migrations directory. This file is automatically updated after a new migration is created.  
 If needed, the refreshIndex command can trigger an update of the index.
@@ -194,5 +200,7 @@ node pg-mate.js refreshIndex
 # or
 ts-node pg-mate.ts refreshIndex
 ```
+
+---
 
 That's it! You can now use pg-mate to manage your Postgresql database migrations.
