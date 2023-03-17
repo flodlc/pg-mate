@@ -119,13 +119,6 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.17.11.tgz#9be796d93ae27b636da32d960899a4912bca27a1"
   integrity sha512-N9vXqLP3eRL8BqSy8yn4Y98cZI2pZ8fyuHx6lKjiG2WABpT2l01TXdzq5Ma2ZUBzfB7tx5dXVhge8X9u0S70ZQ==
 
-"@flodlc/pg-mate@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@flodlc/pg-mate/-/pg-mate-1.0.2.tgz#813325511e9b14426fe8d0e75a99934379fbfce7"
-  integrity sha512-YYWbuRNWlbrrMpd2RPqdRmEl670MFPTu2Cby/L3nd/zSUO4HtBtN+k/mpyt/Xqvs+QYpgj4u43DlMgLTKCPy+A==
-  dependencies:
-    ts-node "^10.9.1"
-
 "@jridgewell/resolve-uri@^3.0.3":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@jridgewell/resolve-uri/-/resolve-uri-3.1.0.tgz#2203b118c157721addfe69d47b70465463066d78"
@@ -623,6 +616,13 @@ pg-int8@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/pg-int8/-/pg-int8-1.0.1.tgz#943bd463bf5b71b4170115f80f8efc9a0c0eb78c"
   integrity sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==
+
+pg-mate@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/pg-mate/-/pg-mate-1.0.9.tgz#0c99d02634814ea1f38cf2b6ad006fb4deb5f02a"
+  integrity sha512-HnHtlGQ8hc2CQ0lnmMFpVP8Qyn0REODeQJzPfCvjpFTlAuOcmNwb/JlAFICOeLk/iPKVa2PT/0iijBLz2/gTRw==
+  dependencies:
+    ts-node "^10.9.1"
 
 pg-pool@^3.6.0:
   version "3.6.0"

@@ -13,7 +13,7 @@
     "typescript": ">=4.1"
   },
   "dependencies": {
-    "pg-mate": "^1.0.8",
+    "pg-mate": "^1.0.9",
     "pg": "^8.10.0",
     "ts-node": "^10.9.1"
   },
