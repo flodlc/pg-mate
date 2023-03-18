@@ -16,13 +16,14 @@ export const migrate = async ({
   let done = 0;
 
   try {
+    const batch_id = Date.now();
     for (const [name, { up }] of migrationEntries) {
       currentMigrationName = name;
       const exist = rows.some((row) => row.name === name);
       if (exist) continue;
       await up(client);
       await internalClient.query(
-        `INSERT INTO "pg_mate"(name, date) VALUES('${name}', NOW())`
+        `INSERT INTO "pg_mate"(name, date, batch_id) VALUES('${name}', NOW(), '${batch_id}')`
       );
       done++;
     }

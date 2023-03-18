@@ -15,7 +15,8 @@ export const ensureMetaTableReady = async ({
   await client.query(`CREATE TABLE IF NOT EXISTS "pg_mate" (
                         "id" SERIAL PRIMARY KEY,
                         "name" varchar NOT NULL,
-                        "date" timestamp NOT NULL
+                        "date" timestamp NOT NULL,
+                        "batch_id" varchar(20) NOT NULL
                         )
                     `);
 };
