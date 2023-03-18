@@ -5,20 +5,33 @@ import { rollback } from "./commands/rollback";
 import { PgMateConfig } from "./types";
 import { getInternalClient } from "./utils";
 
+const isValidCommand = (
+  command: string
+): command is keyof Awaited<ReturnType<typeof init>> => {
+  return !!(
+    command &&
+    ["migrate", "rollback", "create", "refreshIndex"].includes(command)
+  );
+};
+
 const cli = async (config: PgMateConfig) => {
-  const lastParam = process.argv[process.argv.length - 1];
-  if (
-    !lastParam ||
-    !["migrate", "rollback", "create", "refreshIndex"].includes(lastParam)
-  ) {
-    return;
-  }
+  const command = process.argv[2];
+  const cliparam = process.argv[3];
+
+  if (!isValidCommand(command)) return;
 
   const mate = await init(config);
-  const command = lastParam as keyof typeof mate;
 
   (async () => {
-    await mate[command]();
+    switch (command) {
+      case "create":
+        await mate.create({ name: cliparam });
+        break;
+      default:
+        await mate[command]();
+        break;
+    }
+
     process.exit();
   })();
 
@@ -39,7 +52,7 @@ const init = async (config: PgMateConfig) => {
   return {
     migrate: () => migrate(params),
     rollback: () => rollback(params),
-    create: () => create(params),
+    create: (args: { name?: string }) => create({ ...params, ...args }),
     refreshIndex: () => refreshIndex(params),
   };
 };

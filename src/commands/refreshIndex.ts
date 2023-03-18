@@ -9,7 +9,6 @@ export const refreshIndex = async ({
   esm: boolean;
   ts: boolean;
 }) => {
-  console.log("refreshIndexrefreshIndexrefreshIndex");
   const sortedFiles = await getSortedMigrationFiles({ migrationDir });
   const importContent = sortedFiles.reduce(
     (acc, name) => `${acc}
