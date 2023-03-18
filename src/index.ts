@@ -1,2 +1,2 @@
 export { PgMateConfig } from "./types";
-export { pgMate } from "./lib";
+export { pgMate } from "./pgMate";
