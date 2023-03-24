@@ -1,5 +1,5 @@
 <h1 align="center">Pg-mate</h1>
-<p align="center">First class migrations for PostgreSQL.</p>
+<p align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=2000&pause=1000&center=true&repeat=false&width=450&height=80&lines=First+class+migrations+for+PostgreSQL." alt="Typing SVG" /></a></p>
 
 ### Pg-mate is a migration management tool for PostgreSQL databases with the following features:
 
