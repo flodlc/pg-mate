@@ -2,8 +2,8 @@ import { Client } from "pg";
 export type MigrationFiles = Record<
   string,
   {
-    up: (client: Client) => Promise<void>;
-    down: (client: Client) => Promise<void>;
+    up: (client: any) => Promise<void>;
+    down: (client: any) => Promise<void>;
   }
 >;
 
