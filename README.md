@@ -154,11 +154,11 @@ type PgMateConfig = {
 ### Creating a Migration
 
 ```sh
-pgMateClient.create()
+pgMateClient.create({ name: 'hello' })
 # or
-node pg-mate.js create
+node pg-mate.js create <name>
 # or
-ts-node pg-mate.ts create
+ts-node pg-mate.ts create <name>
 ```
 
 ```typescript
