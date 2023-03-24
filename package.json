@@ -1,7 +1,7 @@
 {
   "name": "pg-mate",
   "description": "Pg-mate is a migration management tool for PostgreSQL databases",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "repository": "https://github.com/flodlc/pg-mate.git",
   "author": "flodlc <f.delacomble@gmail.com>",
   "license": "MIT",
