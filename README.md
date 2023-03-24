@@ -1,7 +1,7 @@
 <h1 align="center">Pg-mate</h1>
-<p align="center">First class migrations for Postgresql.</p>
+<p align="center">First class migrations for PostgreSQL.</p>
 
-### Pg-mate is a migration management tool for Postgresql databases with the following features:
+### Pg-mate is a migration management tool for PostgreSQL databases with the following features:
 
 - Up and down migrations
 - Customizable client injection for migrations (native pg driver, zapatos, or any other client you want)
